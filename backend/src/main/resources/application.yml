@@ -1,0 +1,67 @@
+security: 
+  uri:
+      white-list : /api/v1/auth/**
+  disable :
+      csrf : true
+  # Pendiente actualizar para producción
+  cors:
+      allowed:
+           origins: "http://localhost:3000"
+# Logbook: HTTP request and response logging
+logging:
+      level:
+        org:
+          zalando:
+            logbook : TRACE
+server:
+  port: 8080
+
+spring:
+    contentnegotiation:
+              defaultContentType: application/json
+    # address : 192.168.187.215
+    datasource:
+        url: jdbc:mysql://localhost:3306/ecomerce?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+        username: root
+        password: 
+
+    jpa:
+        show-sql: true
+        hibernate:
+            # ddl-auto: create
+            ddl-auto: update
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+ 
+ 
+ 
+    
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: cheigeurdeidine@gmail.com
+      password: mpig dbal ueaf fwrp
+      # protocol: smtp
+      # tls: true
+      properties:
+        mail:
+            smtp:
+              timeout: 5000
+              writetimeout: 5000
+              connectiontimeout: 5000
+              auth: true
+              starttls:
+                enable: true 
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+    cors:
+        allowedOrigins: http://localhost:3000,http://localhost:8080
+ 
+ 
+
