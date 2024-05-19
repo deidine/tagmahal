@@ -1,7 +1,7 @@
 package com.tagemahale.springboot.service;
 
-import com.tagemahale.springboot.payload.payload.CartDto;
-import com.tagemahale.springboot.payload.payload.CartHelp;
+import com.tagemahale.springboot.payload.CartDto;
+import com.tagemahale.springboot.payload.CartHelp;
 
 public interface CartService {
 

@@ -7,8 +7,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tagemahale.springboot.payload.payload.ApiResponse;
-import com.tagemahale.springboot.payload.payload.ProductDto;
+import com.tagemahale.springboot.payload.ProductDto;
+import com.tagemahale.springboot.payload.ApiResponse;
 import com.tagemahale.springboot.service.ProductService;
 
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class ProductControllers {
     @DeleteMapping(value = "/del/{ProductId}",produces = "application/json")
     public ResponseEntity<ApiResponse> Delete(@PathVariable Integer ProductId){
         this.productService.DeleteProduct(ProductId);
-        return new ResponseEntity<ApiResponse>(new ApiResponse("Product deleted"),HttpStatus.valueOf(200));
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true,"Product deleted"),HttpStatus.valueOf(200));
     }
 
 

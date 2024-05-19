@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.tagemahale.springboot.model.Cart;
 import com.tagemahale.springboot.model.ConfirmationToken;
 import com.tagemahale.springboot.model.User;
-import com.tagemahale.springboot.model.entities.Cart;
 import com.tagemahale.springboot.payload.SignUpRequest;
 import com.tagemahale.springboot.repository.ConfirmationTokenRepository;
 import com.tagemahale.springboot.repository.UserRepository;

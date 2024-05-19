@@ -1,4 +1,4 @@
-package com.tagemahale.springboot.payload.payload;
+package com.tagemahale.springboot.payload;
  
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
+
+import com.tagemahale.springboot.payload.UserDto;
 
 @ToString
 @Data

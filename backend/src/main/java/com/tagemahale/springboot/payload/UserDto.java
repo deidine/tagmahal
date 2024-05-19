@@ -1,4 +1,4 @@
-package com.tagemahale.springboot.payload.payload;
+package com.tagemahale.springboot.payload;
  
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,5 @@
 package com.tagemahale.springboot.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tagemahale.springboot.model.entities.Cart;
 
 import lombok.NoArgsConstructor;
 import lombok.Getter;

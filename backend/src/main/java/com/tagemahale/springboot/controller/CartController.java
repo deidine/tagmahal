@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.tagemahale.springboot.payload.payload.ApiResponse;
-import com.tagemahale.springboot.payload.payload.CartDto;
-import com.tagemahale.springboot.payload.payload.CartHelp;
+import com.tagemahale.springboot.payload.CartDto;
+import com.tagemahale.springboot.payload.CartHelp;
+import com.tagemahale.springboot.payload.ApiResponse;
 import com.tagemahale.springboot.service.CartService;
 
 import java.security.Principal;
@@ -43,6 +43,6 @@ public class CartController {
         String userEmail = principal.getName();
         this.cartService.RemoveById(productid,userEmail);
 
-        return new ResponseEntity<>(new ApiResponse("remove"),HttpStatus.valueOf(200));
+        return new ResponseEntity<>(new ApiResponse(true,"remove"),HttpStatus.valueOf(200));
     }
 }

@@ -1,4 +1,4 @@
-package com.tagemahale.springboot.model.entities;
+package com.tagemahale.springboot.model;
 
 
 import javax.persistence.*;

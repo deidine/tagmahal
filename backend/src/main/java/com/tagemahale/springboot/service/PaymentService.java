@@ -1,6 +1,6 @@
 package com.tagemahale.springboot.service;
 
-import com.tagemahale.springboot.payload.payload.PaymentDetails;
+import com.tagemahale.springboot.payload.PaymentDetails;
 
 public interface PaymentService {
 

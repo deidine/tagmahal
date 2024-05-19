@@ -1,6 +1,4 @@
-package com.tagemahale.springboot.payload.payload;
-
-
+package com.tagemahale.springboot.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +8,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ApiResponse {
+@ToString
+public class SingIn {
 
-    private String Message;
-
+    private String Email;
+    private String Password;
+    private String jwt;
 
 }

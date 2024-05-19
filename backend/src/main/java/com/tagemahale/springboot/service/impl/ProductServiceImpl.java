@@ -5,8 +5,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tagemahale.springboot.model.entities.Product;
-import com.tagemahale.springboot.payload.payload.ProductDto;
+import com.tagemahale.springboot.model.Product;
+import com.tagemahale.springboot.payload.ProductDto;
 import com.tagemahale.springboot.repository.ProductRepo;
 import com.tagemahale.springboot.service.ProductService;
 

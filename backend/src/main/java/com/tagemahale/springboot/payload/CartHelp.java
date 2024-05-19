@@ -1,18 +1,16 @@
-package com.tagemahale.springboot.payload.payload;
+package com.tagemahale.springboot.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @ToString
-public class SingIn {
-
-    private String Email;
-    private String Password;
-    private String jwt;
-
+public class CartHelp {
+    private String UserEmail;
+    private int ProductId;
+    private int Quantity;
 }

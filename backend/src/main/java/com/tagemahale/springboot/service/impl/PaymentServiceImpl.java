@@ -2,7 +2,7 @@ package com.tagemahale.springboot.service.impl;
  
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
-import com.tagemahale.springboot.payload.payload.PaymentDetails;
+import com.tagemahale.springboot.payload.PaymentDetails;
 import com.tagemahale.springboot.service.PaymentService;
 
 import org.json.JSONObject;

@@ -3,8 +3,8 @@ package com.tagemahale.springboot.service.impl;
  
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.tagemahale.springboot.payload.payload.CartDetailDto;
-import com.tagemahale.springboot.payload.payload.CartHelp;
+import com.tagemahale.springboot.payload.CartDetailDto;
+import com.tagemahale.springboot.payload.CartHelp;
 import com.tagemahale.springboot.repository.CartRepo;
 import com.tagemahale.springboot.repository.UserRepository;
 import com.tagemahale.springboot.service.CartDetailsService;

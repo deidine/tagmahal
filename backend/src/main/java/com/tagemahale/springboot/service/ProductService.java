@@ -2,7 +2,7 @@ package com.tagemahale.springboot.service;
 
 import java.util.List;
 
-import com.tagemahale.springboot.payload.payload.ProductDto;
+import com.tagemahale.springboot.payload.ProductDto;
 
 public interface ProductService {
 

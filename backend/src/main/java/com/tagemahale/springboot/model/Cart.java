@@ -1,9 +1,7 @@
-package com.tagemahale.springboot.model.entities;
+package com.tagemahale.springboot.model;
 
  
 import javax.persistence.*;
-
-import com.tagemahale.springboot.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

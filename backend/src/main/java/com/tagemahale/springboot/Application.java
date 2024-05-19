@@ -9,12 +9,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.tagemahale.springboot.config.AppProperties;
  
 @SpringBootApplication
-
-@ComponentScan(basePackages = "com.formbuilder.springboot")
+// @ComponentScan(basePackages = "com.formbuilder.springboot")
 @EnableConfigurationProperties(AppProperties.class)
 public class Application {
   
