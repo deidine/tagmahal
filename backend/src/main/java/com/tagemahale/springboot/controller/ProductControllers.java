@@ -46,7 +46,7 @@ public class ProductControllers {
 
 
     //Get All Product
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<List<ProductDto>> getAll(){
         List<ProductDto> products = this.productService.ReadAllProduct();
 
@@ -55,7 +55,7 @@ public class ProductControllers {
 
 
     //Delete Product
-    @DeleteMapping(value = "/del/{ProductId}",produces = "application/json")
+    @DeleteMapping(value = "/delete/{ProductId}",produces = "application/json")
     public ResponseEntity<ApiResponse> Delete(@PathVariable Integer ProductId){
         this.productService.DeleteProduct(ProductId);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true,"Product deleted"),HttpStatus.valueOf(200));
@@ -64,14 +64,18 @@ public class ProductControllers {
 
 
     //Update Product
-    @PutMapping("/{ProductId}")
-    public ResponseEntity<ProductDto> UpdateProduct(@RequestParam MultiValueMap<String, String> formData, @RequestParam("img") MultipartFile file,@PathVariable Integer ProductId) throws IOException {
+    @PutMapping("update/{ProductId}")
+    public ResponseEntity<ProductDto> UpdateProduct(
+        @RequestParam MultiValueMap<String, String> formData,
+     @RequestParam("img") MultipartFile file,
+     @PathVariable Integer ProductId) throws IOException {
         ProductDto productDto = new ProductDto();
         productDto.setProductName(formData.getFirst("productname"));
         productDto.setDescription(formData.getFirst("description"));
         productDto.setWeight(Float.valueOf(formData.getFirst("weight")));
         productDto.setPrice(Float.valueOf(formData.getFirst("price")));
         productDto.setImg(file.getBytes());
+        System.out.println(productDto.toString());
 
         ProductDto save = this.productService.UpdateProduct(productDto,ProductId);
 

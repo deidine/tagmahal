@@ -6,7 +6,7 @@ security:
   # Pendiente actualizar para producción
   cors:
       allowed:
-           origins: "http://localhost:3000"
+           origins: "http://localhost:3001"
 # Logbook: HTTP request and response logging
 logging:
       level:
@@ -61,7 +61,4 @@ app:
     tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
     tokenExpirationMsec: 864000000
     cors:
-        allowedOrigins: http://localhost:3000,http://localhost:8080
- 
- 
-
+        allowedOrigins: http://localhost:3001,http://localhost:8080
