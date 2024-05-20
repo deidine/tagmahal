@@ -56,6 +56,7 @@ export const Login = () => {
     sessionStorage.setItem("token", data.accessToken);
     sessionStorage.setItem("email", data.email);
     sessionStorage.setItem("username", data.username);
+    sessionStorage.setItem("user_id", data.id);
     sessionStorage.setItem("roles", data.roles);
     console.log(data)
     if(res.status===200){

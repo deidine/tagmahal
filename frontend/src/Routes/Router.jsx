@@ -10,6 +10,7 @@ import { Singup } from "../Pages/Singup";
 import { Protected } from "../Component/Protected";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
 import CreateProduct from "../Pages/Admin/CreateProduct";
+import CreateOrder from "../Pages/Admin/CreateOrder";
 import UpdateProduct from "../Pages/Admin/UpdateProduct";
 import Products from "../Pages/Admin/Products";
 import CreateCategory from "../Pages/Admin/CreateCategory";
@@ -30,6 +31,7 @@ export const Router = () => {
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
           <Route path="/admin/create-category" element={<CreateCategory />} />
           <Route path="/admin/create-product" element={<CreateProduct />} />
+          <Route path="/admin/create-order" element={<CreateOrder />} />
           <Route path="/admin/products/:id" element={<UpdateProduct />} />
           <Route extact path="/admin/products" element={<Products />} />
           <Route path="/admin/users" element={<Users />} />

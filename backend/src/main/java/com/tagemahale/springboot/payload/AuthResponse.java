@@ -9,15 +9,21 @@ public class AuthResponse {
     private String tokenType = "Bearer";
     private List<AppUserRole> roles;
     private String email, username;
-
-    public AuthResponse(String accessToken, String username, List<AppUserRole> roles, String email) {
+private int id;
+    public AuthResponse(String accessToken, String username, List<AppUserRole> roles, String email,
+    int id) {
         this.accessToken = accessToken;
         this.username = username;
         this.roles = roles;
         this.email = email;
-
+this.id=id;
     }
-
+public int getId(){
+    return this.id;
+}
+public void setId(int id){
+   this.id=id;
+}
     public String getUsername( ) {
         return username;
     }

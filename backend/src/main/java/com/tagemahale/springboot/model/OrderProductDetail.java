@@ -1,5 +1,5 @@
 package com.tagemahale.springboot.model;
-
+import com.tagemahale.springboot.model.Order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class OrderProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

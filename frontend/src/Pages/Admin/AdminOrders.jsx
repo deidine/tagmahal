@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { Select } from "antd";
 const { Option } = Select;
 
-const AdminOrders = () => {
-  const auth = useSelector((state) => state.auth);
+const AdminOrders = () => { 
   const [orders, setOrders] = useState([]);
   const [status, setStatus] = useState([
     { value: "Not Process", color: "gray" },
@@ -18,10 +17,10 @@ const AdminOrders = () => {
 
   const getAllOrders = async () => {
     try {
-      const authToken = JSON.parse(localStorage.getItem("token"));
-      const { data } = await axios.get("/api/v1/auth/all-orders", {
+      const authToken = sessionStorage.getItem("token") ;
+      const { data } = await axios.get("http://localhost:8080/orders", {
         headers: {
-          Authorization: authToken,
+          Authorization:"Bearer "+ authToken,
         },
       });
       setOrders(data);
@@ -30,11 +29,10 @@ const AdminOrders = () => {
     }
   };
 
-  useEffect(() => {
-    if (auth?.token) {
+  useEffect(() => { 
       getAllOrders();
-    }
-  }, [auth?.token]);
+    
+  }, []);
 
   const handleStatusChange = async (orderID, value) => {
     try {
@@ -98,8 +96,8 @@ const AdminOrders = () => {
                         ))}
                       </Select>
                     </td>
-                    <td>{order?.buyer?.name}</td>
-                    <td>{new Date(order?.createdAt).toLocaleDateString()}</td>
+                    <td>{order?.userId}</td>
+                    <td>{ new Date(order?.orderDate).toLocaleDateString()}</td>
                     <td>
                       {order?.payment?.success ? (
                         <span
@@ -121,26 +119,9 @@ const AdminOrders = () => {
                       <div className="d-flex flex-column align-items-center">
                         {order?.products?.map((product, i) => (
                           <div key={i} className="mb-2">
-                            <img
-                              src={`/api/v1/products/get-product-photo/${product.id}`}
-                              alt={product.name}
-                              width="50"
-                              height="40"
-                              style={{ objectFit: "contain" }}
-                              className="img-fluid"
-                            />
-                            <div
-                              style={{
-                                whiteSpace: "nowrap",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                maxWidth: "45ch",
-                              }}
-                            >
-                              {product?.name}
-                            </div>
-                            <div>${product.priceUSD}/-</div>
-                          </div>
+                           
+                         {product}
+                           </div>
                         ))}
                       </div>
                     </td>

@@ -18,20 +18,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "buyer_id")
     private User buyer;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-
     private String paymentStatus;
-
     private String orderStatus;
-
-    private int quantity;
-
+    private float quantity;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProductDetail> productDetails;
 }

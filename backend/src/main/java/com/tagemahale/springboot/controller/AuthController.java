@@ -81,8 +81,9 @@ public class AuthController {
         String token = tokenProvider.createToken(authentication);
         log.info("  user login" + loginRequest.toString());
         log.info("login");
-
-        return ResponseEntity.ok(new AuthResponse(token, user2.getName(), user2.getAppUserRoles(), user2.getEmail()));
+System.out.println(user2.getId()+"seses");
+        return ResponseEntity.ok(new AuthResponse(token, user2.getName(), user2.getAppUserRoles(), 
+        user2.getEmail(),user2.getId()));
 
     }
 
