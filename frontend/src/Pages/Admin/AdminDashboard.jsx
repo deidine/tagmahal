@@ -64,12 +64,12 @@ const AdminDashboard = () => {
               />
             </div>
             <div className="col-md-9">
-              <h2 className="fw-bold mb-3">{auth?.name}</h2>
+              <h2 className="fw-bold mb-3">{ sessionStorage.getItem("username")}</h2>
               <p className="mb-1">
-                <FaEnvelope className="me-2" /> {auth?.email}
+                <FaEnvelope className="me-2" /> { sessionStorage.getItem("email")}
               </p>
               <p className="mb-1">
-                <FaPhone className="me-2" /> {auth?.phone}
+                <FaPhone className="me-2" /> { sessionStorage.getItem("roles")}
               </p>
               <p className="mb-1">
                 <FaMapMarkerAlt className="me-2" /> {auth?.address}

@@ -15,13 +15,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.tagemahale.springboot.exception.BadRequestException;
 import com.tagemahale.springboot.exception.UserNotVerifiedException;
 import com.tagemahale.springboot.model.ConfirmationToken;
+import com.tagemahale.springboot.model.Product;
 import com.tagemahale.springboot.model.User;
 import com.tagemahale.springboot.payload.ApiResponse;
 import com.tagemahale.springboot.payload.AuthResponse;
 import com.tagemahale.springboot.payload.LoginRequest;
+import com.tagemahale.springboot.payload.ProductDto;
 import com.tagemahale.springboot.payload.SignUpRequest;
 import com.tagemahale.springboot.payload.SignUpResponse;
 import com.tagemahale.springboot.payload.TotpRequest;
+import com.tagemahale.springboot.payload.UserDto;
 import com.tagemahale.springboot.payload.VerifyEmailRequest;
 import com.tagemahale.springboot.repository.UserRepository;
 import com.tagemahale.springboot.security.CustomUserDetailsService;
@@ -33,6 +36,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -162,12 +168,17 @@ public class AuthController {
     @GetMapping("/users")
     // @Secured("ROLE_ADMIN")
     // @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getCurrentUser() {
-        log.info("show user to front");
-
+    public ResponseEntity<Stream<Object>> getCurrentUser() {
+        log.info("Fetching all users");
+    
         List<User> users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+        Stream<Object> collect = users.stream()
+                .map(user -> new UserDto( user.getId(),user.getName(),user.getEmail(),user.getPassword())
+               );
+    
+        return new ResponseEntity<>(collect,HttpStatus.valueOf(200));
     }
+    
 
     @DeleteMapping("delete/{userId}")
     // @PreAuthorize("hasRole('CLIENT')")

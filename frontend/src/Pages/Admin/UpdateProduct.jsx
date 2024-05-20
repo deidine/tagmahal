@@ -13,18 +13,19 @@ const UpdateProduct = () => {
   const [loading, setLoading] = useState(false);
   const [productId, setProductId] = useState("");
   const [description, setDescription] = useState("");
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState(null);
   const [price, setPrice] = useState(0);
   const [productName, setProductName] = useState("");
   const [weight, setWeight] = useState(0);
-  const[token,setToken]=useState(sessionStorage.getItem("token"));
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
 
   // GET Single Product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8080/product/${params.id}`,
-      { headers: { Authorization: "Bearer "+token } });
-      console.log(data)
+      const { data } = await axios.get(`http://localhost:8080/product/${params.id}`, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      console.log(data);
       const product = data;
       setProductId(product.productid);
       setDescription(product.description);
@@ -46,12 +47,15 @@ const UpdateProduct = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const productData = new FormData(); 
+      const productData = new FormData();
       productData.append("description", description);
       productData.append("price", price);
       productData.append("productname", productName);
       productData.append("weight", weight);
-      productData.append("img", img);
+      if (img) {
+        productData.append("img", img);
+      }
+
       const { data } = await axios.put(
         `http://localhost:8080/product/update/${productId}`,
         productData,
@@ -160,10 +164,13 @@ const UpdateProduct = () => {
                 <div className="col-md-2">
                   <div className="position-relative">
                     <Image width={100} height={100}
-                    src={`data:image/jpeg;base64,${img}`}
-                    //  src={URL.createObjectURL(img)} 
-                     alt={img?.name} />
-                    <button type="button" className="btn btn-sm btn-danger position-absolute top-0 end-0">
+                      src={`data:image/jpeg;base64,${img}`}
+                      alt="Product Image" />
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-danger position-absolute top-0 end-0"
+                      onClick={() => setImg(null)}
+                    >
                       <span className="fw-bold">X</span>
                     </button>
                   </div>
@@ -176,7 +183,11 @@ const UpdateProduct = () => {
                         <ClipLoader className="loader" />
                       </div>
                     ) : (
-                      <Image width={100} height={100} style={{ objectFit: "cover" }} src={`http://localhost:8080/product/photo/${productId}`} />
+                      <Image width={100} height={100} style={{ objectFit: "cover" }}
+                      src={`data:image/jpeg;base64,${img}`}
+                        // src={`http://localhost:8080/product/photo/${productId}`} // Assuming a fallback URL if no image is uploaded
+                        alt="Default Product Image"
+                      />
                     )}
                   </div>
                 </div>

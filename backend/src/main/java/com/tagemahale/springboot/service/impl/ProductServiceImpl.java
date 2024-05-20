@@ -4,12 +4,10 @@ package com.tagemahale.springboot.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tagemahale.springboot.model.Product;
 import com.tagemahale.springboot.payload.ProductDto;
 import com.tagemahale.springboot.repository.ProductRepo;
 import com.tagemahale.springboot.service.ProductService;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -41,6 +39,26 @@ public class ProductServiceImpl implements ProductService {
         save.setImg(null);
         return this.modelMapper.map(save,ProductDto.class);
     }
+
+    //Update
+    @Override
+    public ProductDto UpdateProduct(ProductDto productDto,Integer ProductId) {
+
+        Product newProduct = this.productRepo.findById(ProductId).orElseThrow();
+        newProduct.setProductId(ProductId);
+        newProduct.setDescription(productDto.getDescription());
+        newProduct.setProductName(productDto.getProductName());
+        newProduct.setWeight(Float.valueOf(productDto.getWeight()));
+        newProduct.setPrice(Float.valueOf(productDto.getPrice()));
+        if (productDto.getImg() != null ) {
+            newProduct.setImg(compressBytes(productDto.getImg()));
+        }
+        productRepo.save(newProduct);
+        newProduct.setImg(null);
+
+        return this.modelMapper.map(newProduct,ProductDto.class);
+    }
+
 
     //Read One
     @Override
@@ -76,25 +94,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-    //Update
-    @Override
-    public ProductDto UpdateProduct(ProductDto productDto,Integer ProductId) {
-
-        Product newProduct = this.productRepo.findById(ProductId).orElseThrow();
-        newProduct.setProductId(ProductId);
-        newProduct.setDescription(productDto.getDescription());
-        newProduct.setProductName(productDto.getProductName());
-        newProduct.setWeight(Float.valueOf(productDto.getWeight()));
-        newProduct.setPrice(Float.valueOf(productDto.getPrice()));
-        newProduct.setImg(productDto.getImg());
-
-        productRepo.save(newProduct);
-
-
-        return this.modelMapper.map(newProduct,ProductDto.class);
-    }
-
-
 
 
 
@@ -121,19 +120,25 @@ public class ProductServiceImpl implements ProductService {
 
     // uncompress the image bytes before returning it to the angular application
     public static byte[] decompressBytes(byte[] data) {
+        if (data == null || data.length == 0) {
+            return new byte[0];
+        }
+        
         Inflater inflater = new Inflater();
         inflater.setInput(data);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
         byte[] buffer = new byte[1024];
+        
         try {
             while (!inflater.finished()) {
                 int count = inflater.inflate(buffer);
                 outputStream.write(buffer, 0, count);
             }
             outputStream.close();
-        } catch (IOException ioe) {
-        } catch (DataFormatException e) {
+        } catch (IOException | DataFormatException e) {
+            e.printStackTrace(); // Handle the exception properly in production code
         }
+        
         return outputStream.toByteArray();
     }
 }

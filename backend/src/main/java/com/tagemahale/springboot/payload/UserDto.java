@@ -14,17 +14,17 @@ import java.util.Date;
 public class UserDto {
 
 
-    private int Userid;
+    private int id;
 
-    private String Name;
-    private String Email;
-    private String Password;
-    private String Contact;
+    private String name;
+    private String email;
+    private String password;
+    // private String Contact;
 
 
-    private Date date;
+    // private Date date;
 
-    private String Role;
+    // private String Role;
 
 //     private CartDto cart;
 

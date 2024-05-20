@@ -9,12 +9,13 @@ const Users = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/api/v1/auth/users/all-users", {
+        const response = await axios.get("http://localhost:8080/auth/users", {
           headers: {
             Authorization: token,
           },
         });
-        setUsers(response.data.users);
+        setUsers(response.data); // Update to response.data
+        console.log(response.data); // Make sure to log response.data
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -45,23 +46,12 @@ const Users = () => {
                   <th scope="col" style={{ width: "15%" }}>
                     Email
                   </th>
-                  <th scope="col" style={{ width: "10%" }}>
-                    Phone
-                  </th>
-                  <th scope="col" style={{ width: "10%" }}>
-                    Password
-                  </th>
-                  <th scope="col" style={{ width: "5%" }}>
-                    Role
-                  </th>
-                  <th scope="col" style={{ width: "40%" }}>
-                    Address
-                  </th>
+                  {/* Add more headers as needed */}
                 </tr>
               </thead>
               <tbody>
                 {users.map((user, index) => (
-                  <tr key={user._id} className="text-center">
+                  <tr key={user.id} className="text-center">
                     <td style={{ width: "5%" }}>{index + 1}</td>
                     <td
                       style={{
@@ -83,46 +73,7 @@ const Users = () => {
                     >
                       {user.email}
                     </td>
-                    <td
-                      style={{
-                        width: "10%",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {user.phone}
-                    </td>
-                    <td
-                      style={{
-                        width: "10%",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {user.password}
-                    </td>
-                    <td
-                      style={{
-                        width: "5%",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {user.role === 1 ? "Admin" : "User"}
-                    </td>
-                    <td
-                      style={{
-                        width: "40%",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {user.address}
-                    </td>
+                    {/* Add more columns as needed */}
                   </tr>
                 ))}
               </tbody>

@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/**/entite/save").hasRole("CLIENT")
-                .antMatchers(HttpMethod.GET, "/auth/users").hasRole("ADMIN")
+                // .antMatchers(HttpMethod.GET, "/auth/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/**/entite/delete/*").hasRole("ADMIN")
                 .antMatchers("/auth/verify").permitAll()
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()

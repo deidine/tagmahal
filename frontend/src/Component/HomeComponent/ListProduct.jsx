@@ -9,7 +9,7 @@ export const ListProduct = () => {
   const fatchData = async () => {
   
     const response = await axiosFetch({
-      "url":"product/",
+      "url":"product/all",
       "method":"GET",
     });
     
@@ -104,7 +104,9 @@ export const ListProduct = () => {
           <ul className="grid-list">
             {data.map((item) => 
 
-               <ProductCard key={item.productid} id={item.productid} name={item.productName} description={item.description} price={item.price} img={item.img} />
+               <ProductCard key={item.productid} id={item.productid} 
+               name={item.productName} description={item.description}
+                price={item.price} img={item.img} />
             
             
         

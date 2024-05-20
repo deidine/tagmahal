@@ -67,15 +67,16 @@ public class ProductControllers {
     @PutMapping("update/{ProductId}")
     public ResponseEntity<ProductDto> UpdateProduct(
         @RequestParam MultiValueMap<String, String> formData,
-     @RequestParam("img") MultipartFile file,
+     @RequestParam(value="img", required = false) MultipartFile file,
      @PathVariable Integer ProductId) throws IOException {
         ProductDto productDto = new ProductDto();
         productDto.setProductName(formData.getFirst("productname"));
         productDto.setDescription(formData.getFirst("description"));
         productDto.setWeight(Float.valueOf(formData.getFirst("weight")));
         productDto.setPrice(Float.valueOf(formData.getFirst("price")));
-        productDto.setImg(file.getBytes());
-        System.out.println(productDto.toString());
+        if (file != null && !file.isEmpty()) {
+            productDto.setImg(file.getBytes());
+        }
 
         ProductDto save = this.productService.UpdateProduct(productDto,ProductId);
 

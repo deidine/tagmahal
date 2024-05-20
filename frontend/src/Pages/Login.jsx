@@ -54,6 +54,9 @@ export const Login = () => {
     const data = await res.json();
 
     sessionStorage.setItem("token", data.accessToken);
+    sessionStorage.setItem("email", data.email);
+    sessionStorage.setItem("username", data.username);
+    sessionStorage.setItem("roles", data.roles);
     console.log(data)
     if(res.status===200){
       onToast('Login Successfull!!');

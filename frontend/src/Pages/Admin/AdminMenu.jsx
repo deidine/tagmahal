@@ -19,7 +19,7 @@ const AdminMenu = () => {
                 <ul className="list-group list-group-flush">
                   {/* end ==> The end prop changes the matching logic for the active and pending states to only match to the "end" of the NavLink's to path. If the URL is longer than to, it will no longer be considered active. */}
                   <NavLink
-                    to="/dashboard/admin"
+                    to="/admin"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >
@@ -27,7 +27,7 @@ const AdminMenu = () => {
                     Dashboard
                   </NavLink>
                   <NavLink
-                    to="/dashboard/admin/create-category"
+                    to="/admin/create-category"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >
@@ -35,7 +35,7 @@ const AdminMenu = () => {
                     Create Category
                   </NavLink>
                   <NavLink
-                    to="/dashboard/admin/create-product"
+                    to="/admin/create-product"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >
@@ -43,7 +43,7 @@ const AdminMenu = () => {
                     Create Product
                   </NavLink>
                   <NavLink
-                    to="/dashboard/admin/products"
+                    to="/admin/products"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >
@@ -51,7 +51,7 @@ const AdminMenu = () => {
                     All Products
                   </NavLink>
                   <NavLink
-                    to="/dashboard/admin/orders"
+                    to="/admin/orders"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >
@@ -59,7 +59,7 @@ const AdminMenu = () => {
                     All Orders
                   </NavLink>
                   <NavLink
-                    to="/dashboard/admin/users"
+                    to="/admin/users"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end
                   >

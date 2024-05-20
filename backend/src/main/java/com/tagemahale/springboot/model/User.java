@@ -2,6 +2,7 @@ package com.tagemahale.springboot.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,12 +13,13 @@ import javax.validation.constraints.Email;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@AllArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 public class User {
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -51,7 +53,7 @@ public class User {
     private String providerId;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Cart cart;
-
+ 
 
  
 }

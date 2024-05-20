@@ -6,7 +6,7 @@ security:
   # Pendiente actualizar para producción
   cors:
       allowed:
-           origins: "http://localhost:3001"
+           origins: "http://localhost:3000"
 # Logbook: HTTP request and response logging
 logging:
       level:
