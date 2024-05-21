@@ -3,28 +3,30 @@ import { ProductCard } from "../ShopComponent/ProductCard";
 import axiosFetch from "../../Helper/Axios";
 
 export const ListProduct = () => {
-  const[token,setToken]=useState(sessionStorage.getItem("token"));
-  
-  const[data,setData]=useState([]);
-  const fatchData = async () => {
-  
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
     const response = await axiosFetch({
-      "url":"product/all",
-      "method":"GET",
+      url: "/product/all",
+      method: "GET",
     });
-    
-    // const
-    console.log(response.data);
-    setData(response.data);
+
+    if (!response.error && Array.isArray(response.data)) {
+      setData(response.data);
+    } else {
+      setData([]); // Set data to empty array in case of error
+    }
+    setLoading(false);
   };
 
-
-  
   useEffect(() => {
-    fatchData();
+    fetchData();
   }, []);
 
-  
+  if (loading) return <div>Loading...</div>;
+
   return (
     <>
       <section id="products" className="section product">
@@ -102,14 +104,19 @@ export const ListProduct = () => {
             </li>
           </ul>
           <ul className="grid-list">
-            {data.map((item) => 
-
-               <ProductCard key={item.productid} id={item.productid} 
-               name={item.productName} description={item.description}
-                price={item.price} img={item.img} />
-            
-            
-        
+            {data.length > 0 ? (
+              data.map((item) => (
+                <ProductCard
+                  key={item.productid}
+                  id={item.productid}
+                  name={item.productName}
+                  description={item.description}
+                  price={item.price}
+                  img={item.img}
+                />
+              ))
+            ) : (
+              <p>No products available</p>
             )}
           </ul>
         </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AdminMenu from "./AdminMenu";
 import axios from "axios";
-
+import {BACK_END_URL} from '../../constant'
 const Users = () => {
   const [users, setUsers] = useState([]);
 
@@ -9,7 +9,7 @@ const Users = () => {
     const token = JSON.parse(localStorage.getItem("token"));
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/auth/users", {
+        const response = await axios.get(BACK_END_URL+"/auth/users", {
           headers: {
             Authorization: token,
           },

@@ -35,6 +35,14 @@ const AdminMenu = () => {
                     Create Category
                   </NavLink>
                   <NavLink
+                    to="/admin/create-order"
+                    className="list-group-item d-flex align-items-center justify-content-start gap-2"
+                    end
+                  >
+                    <FaPlus className="mr-2 fa-icon-react" />
+                    Create Order
+                  </NavLink>
+                  <NavLink
                     to="/admin/create-product"
                     className="list-group-item d-flex align-items-center justify-content-start gap-2"
                     end

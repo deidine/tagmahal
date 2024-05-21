@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Footer } from "../Component/Footer";
 import { Header } from "../Component/Header";
 import { Items } from "../Component/CartComponent/Items";
+import { BACK_END_URL } from "../constant";
 
 export const Cart = () => {
   useEffect(() => { window.scrollTo(0, 0) }, []);
@@ -13,20 +14,29 @@ export const Cart = () => {
       const [totalAmount, setTotalAmount] = useState(0);
       const[token,setToken]=useState(sessionStorage.getItem("token"));
 
-
+    
       const fatchCart = async () => {
         // get cart item
         console.log(token);
-        const res = await fetch("http://localhost:8080/cart/1", {headers: {
+        try {  
+          const res = await fetch(BACK_END_URL+"/cart/1", {headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer "+token
           },
         });
-        const data = await res.json();
-        setTotalAmount(data.totalAmount);
-        setItem(data.cartDetalis);
-      };
-
+       
+     
+      if (!res.ok) {
+        throw new Error("Failed to create order. Please try again.");
+      }
+      const data = await res.json();
+      setTotalAmount(data.totalAmount);
+      setItem(data.cartDetalis);
+  
+    } catch (error) {
+      // setError(error.message); // Set the error message
+    }
+  };
       useEffect(() => {
         fatchCart();
 
@@ -35,7 +45,7 @@ export const Cart = () => {
       
 
       const createOrder = async (e) => {
-        const res = await fetch(`http://localhost:8080/payment/${totalAmount}`, {
+        const res = await fetch(`${BACK_END_URL}/payment/${totalAmount}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

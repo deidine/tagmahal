@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { FcAddImage } from "react-icons/fc";
 import { Image } from "antd";
-
+import {BACK_END_URL} from '../../constant'
 const CreateProduct = () => {
   
   const [thumbnail, setThumbnail] = useState(null);
@@ -32,7 +32,7 @@ const CreateProduct = () => {
       productData.append("img", thumbnail); 
       
       const { data } = await axios.post(
-        "http://localhost:8080/product/add",
+        BACK_END_URL+"/product/add",
         productData,
         { headers: { Authorization: "Bearer "+authToken } }
       );

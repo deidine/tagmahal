@@ -6,7 +6,7 @@ import { Modal, Button, Form, Input } from "antd";
 import adminImage from "../../assets/img/admin-avtar.png";
 import { updateAdminDetails } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
-
+import {BACK_END_URL} from '../../constant'
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.user);

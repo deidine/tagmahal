@@ -20,14 +20,10 @@ public class OrderDto {
     private Long orderId;
     private Date orderDate;
     private List<String> products;
-    private int userId;
+    private Integer  userId;
     private float Quantity;
     private String paymentStatus;
-    //     private LocalDate date;
     private String orderStatus;
-//     private String paymentStatus;
-//     private int quantity;
-//     private Long buyerId;
     private Integer productIds;
 
 }

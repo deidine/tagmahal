@@ -1,3 +1,4 @@
+import {BACK_END_URL} from '../../constant'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminMenu from "./AdminMenu";
@@ -18,7 +19,7 @@ const AdminOrders = () => {
   const getAllOrders = async () => {
     try {
       const authToken = sessionStorage.getItem("token") ;
-      const { data } = await axios.get("http://localhost:8080/orders", {
+      const { data } = await axios.get(BACK_END_URL+"/orders", {
         headers: {
           Authorization:"Bearer "+ authToken,
         },

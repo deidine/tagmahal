@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Image } from "antd";
 import { FcAddImage } from "react-icons/fc";
-
+import {BACK_END_URL} from '../../constant'
 const UpdateProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const UpdateProduct = () => {
   // GET Single Product
   const getSingleProduct = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:8080/product/${params.id}`, {
+      const { data } = await axios.get(`${BACK_END_URL}/product/${params.id}`, {
         headers: { Authorization: "Bearer " + token },
       });
       console.log(data);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../../shared/ProductCard";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import {BACK_END_URL} from '../../constant'
 const Products = () => {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,7 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/product/all`, {
+        const response = await fetch(`${BACK_END_URL}/product/all`, {
           headers: {
             "Authorization": "Bearer " + token,
           },

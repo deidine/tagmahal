@@ -2,7 +2,9 @@ import { useState } from "react";
 import AdminMenu from "./AdminMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+import {BACK_END_URL} from '../../constant'
+import { Select } from "antd";
+const { Option } = Select;
 const CreateOrder = () => {
   const [orderStatus, setOrderStatus] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
@@ -24,7 +26,7 @@ const CreateOrder = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:8080/orders",
+        BACK_END_URL+"/orders",
         orderData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,16 +68,21 @@ const CreateOrder = () => {
               <label htmlFor="paymentStatus" className="form-label fw-bold">
                 Payment Status:
               </label>
-              <select
-                className="form-control"
-                value={paymentStatus}
-                onChange={(e) => setPaymentStatus(e.target.value)}
-              >
-                <option value="">Select Payment Status</option>
-                <option value="bankily">bankily</option>
-                <option value="masrify">masrify</option>
-                <option value="sada">sada</option>
-              </select>
+            
+              <Select
+                      className="form-control fw-bold"
+                        onChange={(e) => setPaymentStatus(e )
+                        }
+                        defaultValue={"bankily"}
+                        variant="borderless"
+                      >
+                       
+                          <Option value={"bankily"}>bankily</Option>
+                          <Option value={"masrify"}>masrify</Option>
+                          <Option value={"bankily"}>bankily</Option>
+                          <Option value={"sadad"}>sadad</Option>
+                    
+                      </Select>
             </div>
             <div className="mb-3">
               <label htmlFor="quantity" className="form-label fw-bold">

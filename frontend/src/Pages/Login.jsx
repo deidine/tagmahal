@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Footer } from '../Component/Footer'
 import { Header } from '../Component/Header'
 import { toast } from 'react-toastify';
-
+import {BACK_END_URL} from '../constant'
 export const Login = () => {
   const navigate = useNavigate();
   const onToast = (s) => {
@@ -41,7 +41,7 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8080/auth/login", {
+    const res = await fetch(BACK_END_URL+"/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

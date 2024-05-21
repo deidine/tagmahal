@@ -3,7 +3,6 @@ package com.tagemahale.springboot.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.tagemahale.springboot.model.Cart;
 import com.tagemahale.springboot.model.CartDetalis;
 import com.tagemahale.springboot.model.Product;
@@ -21,7 +20,6 @@ import com.tagemahale.springboot.service.CartService;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;

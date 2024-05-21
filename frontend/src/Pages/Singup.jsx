@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Header } from "../Component/Header";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Ensure you import the CSS
- 
+import { BACK_END_URL } from "../constant";
 export const Singup = () => {
   const [user, setUser] = useState({
     name: "",
@@ -28,7 +28,7 @@ export const Singup = () => {
     e.preventDefault();
     if (user.password === user.confirmPassword) {
       try {
-        const res = await fetch("http://localhost:8080/auth/signup", {
+        const res = await fetch(BACK_END_URL+"/auth/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
