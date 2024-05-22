@@ -1,39 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import * as Scroll from 'react-scroll';
 
-// Or Access Link,Element,etc as follows
 let Link = Scroll.Link;
 
-
-
 export const Header = () => {
-  
-
   const [islogin, setislogin] = useState(sessionStorage.getItem("token"));
-  
   const navigate = useNavigate();
-  const handalRedirect = () => {
+
+  const handleRedirect = () => {
     if (islogin) {
       navigate(`/cart`);
-   
     } else {
       navigate(`/login`);
-
     }
   };
 
-  const handalLogout = () => {
+  const handleLogout = () => {
     sessionStorage.removeItem("token");
-    setislogin(false)
+    setislogin(false);
     navigate(`/`);
   };
-
-  
-
-    
-
 
   return (
     <header className="header" data-header="">
@@ -46,7 +33,7 @@ export const Header = () => {
           </h1>
           <button
             className="nav-open-btn"
-            aria-label="Open Menu"
+            aria-label="Ouvrir le menu"
             data-nav-open-btn=""
           >
             <ion-icon name="menu-outline" />
@@ -54,7 +41,7 @@ export const Header = () => {
           <nav className="navbar" data-navbar="">
             <button
               className="nav-close-btn"
-              aria-label="Close Menu"
+              aria-label="Fermer le menu"
               data-nav-close-btn=""
             >
               <ion-icon name="close-outline" />
@@ -62,7 +49,7 @@ export const Header = () => {
             <ul className="navbar-list">
               <li>
                 <a href="/" className="navbar-link">
-                  Home
+                  Accueil
                 </a>
               </li>
               <li>
@@ -74,15 +61,12 @@ export const Header = () => {
                   to="contact"
                   offset={-30}
                 >
-                  About
+                  À propos
                 </Link>
               </li>
               <li>
-                {/* <Link to="/shop" activeClass="active" className="navbar-link"  >
-            Shop
-              </Link> */}
                 <a href="/shop" className="navbar-link">
-                  Shop
+                  Boutique
                 </a>
               </li>
               <li>
@@ -106,7 +90,7 @@ export const Header = () => {
                   to="products"
                   offset={-30}
                 >
-                  Products
+                  Produits
                 </Link>
               </li>
               <li>
@@ -121,51 +105,39 @@ export const Header = () => {
                   Contact
                 </Link>
               </li>
+              <a href="/admin" className="navbar-link" >
+             <ion-icon name="chevron-forward" aria-hidden="true" /> <span className="span">Espace Admin</span>
+              
+            </a>
             </ul>
           </nav>
           <div className="header-action">
             <div className="search-wrapper" data-search-wrapper="">
               <button
                 className="header-action-btn"
-                aria-label="Toggle search"
+                aria-label="Basculer la recherche"
                 data-search-btn=""
               >
                 <ion-icon name="search-outline" className="search-icon" />
-                {/* <ion-icon name="close-outline" className="close-icon" /> */}
               </button>
               <div className="input-wrapper">
                 <input
                   type="search"
                   name="search"
-                  placeholder="Search here"
+                  placeholder="Rechercher ici"
                   className="search-input"
                 />
-                <button className="search-submit" aria-label="Submit search">
+                <button className="search-submit" aria-label="Soumettre la recherche">
                   <ion-icon name="search-outline" />
                 </button>
               </div>
             </div>
-            {/* //whishlist */}
-            {/* {islogin ? (
-              <button
-                className="header-action-btn"
-                aria-label="Open whishlist"
-                data-panel-btn="whishlist"
-              >
-                <ion-icon name="heart-outline" />
-                <data className="btn-badge" value={3}>
-                  03
-                </data>
-              </button>
-            ) : (
-              <></>
-            )} */}
             {!islogin ? (
               <button
                 className="header-action-btn"
-                aria-label="Open shopping cart"
+                aria-label="Ouvrir le panier"
                 data-panel-btn="cart"
-                onClick={handalRedirect}
+                onClick={handleRedirect}
               >
                 <ion-icon name="person-circle-outline"></ion-icon>
               </button>
@@ -173,9 +145,9 @@ export const Header = () => {
               <>
                 <button
                   className="header-action-btn"
-                  aria-label="Open shopping cart"
+                  aria-label="Ouvrir le panier"
                   data-panel-btn="cart"
-                  onClick={handalRedirect}
+                  onClick={handleRedirect}
                 >
                   <ion-icon name="basket-outline" />
                   <data className="btn-badge" value={2}>
@@ -183,16 +155,17 @@ export const Header = () => {
                   </data>
                 </button>
               </>
-              
             )}
-           {islogin ? <button
-                  className="header-action-btn"
-                  aria-label="Open shopping cart"
-                  data-panel-btn="cart"
-                  onClick={() => handalLogout()}
-                >
-                 <ion-icon name="log-out-outline"></ion-icon>
-                </button>:<></>}
+            {islogin ? (
+              <button
+                className="header-action-btn"
+                aria-label="Déconnexion"
+                data-panel-btn="cart"
+                onClick={handleLogout}
+              >
+                <ion-icon name="log-out-outline"></ion-icon>
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

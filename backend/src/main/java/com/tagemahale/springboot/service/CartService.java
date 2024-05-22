@@ -1,5 +1,7 @@
 package com.tagemahale.springboot.service;
 
+import java.util.List;
+
 import com.tagemahale.springboot.payload.CartDto;
 import com.tagemahale.springboot.payload.CartHelp;
 
@@ -19,6 +21,6 @@ public interface CartService {
     void RemoveById(Integer ProductId,String userEmail);
 
     //delete
-
+    List<CartDto> getAllCarts();
 
 }

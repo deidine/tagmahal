@@ -23,7 +23,7 @@ public class EmailSenderService {
         // genrateOTPAndSendOnMobile(49619609);
         mailMessage.setSubject("Account Activation!");
         mailMessage.setText("To confirm your account, please click here : "
-        +"https://localhost:8080/auth/confirm-account?token="+ confirmationToken 
+        +"http://localhost:8080/auth/confirm-account?token="+ confirmationToken 
         + "   Note: This link will expire after 10 minutes.");
         javaMailSender.send(mailMessage);
     }
@@ -43,9 +43,6 @@ public class EmailSenderService {
         
         return isSent;
     }
-
-
-
  
 	public String genrateOTPAndSendOnMobile(int phone ) {
 		int otp =  (int) (Math.random() * 9000) + 1000;

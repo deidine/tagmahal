@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { ProductCard } from "../ShopComponent/ProductCard";
 import axiosFetch from "../../Helper/Axios";
-
+ 
 export const ListProduct = () => {
   const [token, setToken] = useState(sessionStorage.getItem("token"));
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const itemsPerPage = 9;
   const fetchData = async () => {
     const response = await axiosFetch({
       url: "/product/all",
       method: "GET",
     });
-
     if (!response.error && Array.isArray(response.data)) {
       setData(response.data);
     } else {
@@ -25,87 +26,45 @@ export const ListProduct = () => {
     fetchData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset to first page on search
+  };
+
+  const filteredData = data.filter((item) =>
+    item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredData.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  if (loading) return <div>Chargement...</div>;
 
   return (
     <>
       <section id="products" className="section product">
         <div className="container">
-          <p className="section-subtitle"> -- Organic Products --</p>
-          <h2 className="h2 section-title">All Organic Products</h2>
-          <ul className="filter-list">
-            <li>
-              <button className="filter-btn active">
-                <img
-                  src="./images/filter-1.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-1-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Fresh Vegetables</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-2.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-2-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Fish &amp; Meat</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-3.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-3-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Healthy Fruit</p>
-              </button>
-            </li>
-            <li>
-              <button className="filter-btn">
-                <img
-                  src="./images/filter-1.png"
-                  width={20}
-                  alt=""
-                  className="default"
-                />
-                <img
-                  src="./images/filter-1-active.png"
-                  width={20}
-                  alt=""
-                  className="color"
-                />
-                <p className="filter-text">Dairy Products</p>
-              </button>
-            </li>
-          </ul>
+          <p className="section-subtitle"> -- Produits Biologiques --</p>
+          <h2 className="h2 section-title">Tous les Produits Biologiques</h2>
+          
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Rechercher des produits..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </div>
+          
           <ul className="grid-list">
-            {data.length > 0 ? (
-              data.map((item) => (
+            {currentItems.length > 0 ? (
+              currentItems.map((item) => (
                 <ProductCard
                   key={item.productid}
                   id={item.productid}
@@ -116,9 +75,27 @@ export const ListProduct = () => {
                 />
               ))
             ) : (
-              <p>No products available</p>
+              <p>Pas de produits disponibles</p>
             )}
           </ul>
+
+          <nav>
+            <ul className="pagination">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li
+                  key={index}
+                  className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </section>
     </>

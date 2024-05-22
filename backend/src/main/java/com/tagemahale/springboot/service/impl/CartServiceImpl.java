@@ -51,6 +51,22 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public List<CartDto> getAllCarts() {
+        List<Cart> carts = cartRepo.findAll();
+        return carts.stream().map(cart -> {
+            CartDto cartDto = modelMapper.map(cart, CartDto.class);
+            List<CartDetailDto> cartDetailsDtos = cartDto.getCartDetalis().stream().map(cartDetailDto -> {
+                ProductDto productDto = cartDetailDto.getProducts();
+               
+                cartDetailDto.setProducts(productDto);
+                return cartDetailDto;
+            }).collect(Collectors.toList());
+            cartDto.setCartDetalis(cartDetailsDtos);
+            return cartDto;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public CartDto addProductToCart(CartHelp cartHelp) {
 
         int productId=cartHelp.getProductId();
@@ -75,7 +91,7 @@ public class CartServiceImpl implements CartService {
         if(cart==null){
             Cart cart1=new Cart();
             cart.setUser(user);
-
+ 
             int totalAmount2=0;
 
 

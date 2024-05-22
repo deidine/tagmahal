@@ -53,10 +53,7 @@ export const ProductCard = (props) => {
         <div className="product-card">
           <figure className="card-banner">
             <img
-              // src="./images/product-1.png"
               src={`data:image/png;base64,${props.img}`}
-              // src={base64Image}
-
               width={189}
               height={189}
               loading="lazy"
@@ -73,7 +70,7 @@ export const ProductCard = (props) => {
                 aria-label="Quick View"
               >
                 <ion-icon name="eye-outline" />
-                <div className="tooltip">Quick View</div>
+                <div className="tooltip">Voir Rapidement</div>
               </button>
             </div>
           </figure>
@@ -94,7 +91,7 @@ export const ProductCard = (props) => {
             </data>
           </div>
           <button className="btn btn-primary" onClick={() => handalCart()}>
-            Add to Cart
+            Ajouter a  Cart
           </button>
         </div>
       </li>

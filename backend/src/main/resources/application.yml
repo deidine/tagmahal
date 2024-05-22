@@ -34,11 +34,6 @@ spring:
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-
- 
- 
- 
-    
     mail:
       host: smtp.gmail.com
       port: 587
@@ -55,10 +50,11 @@ spring:
               auth: true
               starttls:
                 enable: true 
-
 app:
   auth:
-    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpirationMsec: 864000000
+  # 255.255.255.255
+    ipAdress: http:localhost:8080
+    tokenSecret: T2qodHRmbWZtc21wY29wY3E2cnF1Y3I0eHN5eXN3ZXN3bHRzZGJ4NnhrY2Vz #when this tockhen change so you can make the privte key with public key
+    tokenExpirationMsec: 12960000000 #5month 2592000000 #1 month #864000000 ms / (24 * 60 * 60 * 1000 ms) ≈ 10 days
     cors:
-        allowedOrigins: http://localhost:3001,http://localhost:8080
+      allowedOrigins: http://localhost:3000,http://localhost:8080,http://192.168.100.145:3000

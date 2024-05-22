@@ -12,6 +12,7 @@ import com.tagemahale.springboot.payload.ApiResponse;
 import com.tagemahale.springboot.service.CartService;
 
 import java.security.Principal;
+import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/cart")
@@ -35,6 +36,11 @@ public class CartController {
         CartDto cartDto = this.cartService.GetCart(userEmail);
 
         return new ResponseEntity<>(cartDto, HttpStatus.valueOf(200));
+    }
+    @GetMapping("/allCarts")
+    public ResponseEntity<List<CartDto>> getAllCarts() {
+        List<CartDto> carts = cartService.getAllCarts();
+        return ResponseEntity.ok(carts);
     }
 
 

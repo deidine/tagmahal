@@ -1,8 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
-import axiosFetch from "../../Helper/Axios";
-
+import { BACK_END_URL } from '../../constant';
 export const Items = ({ prop ,setLoading}) => {
   const [quantity, setQuantity] = useState(prop.quantity);
   const[token,setToken]=useState(sessionStorage.getItem("token"));
@@ -23,9 +21,8 @@ export const Items = ({ prop ,setLoading}) => {
   }
   // console.log(quantity);
   const updateQuantity = async (q) => {
- 
     const res = await fetch(
-      `http://localhost:8080/cart/addproduct`,
+      `${BACK_END_URL}/cart/addproduct`,
       {
         method: "POST",
         headers: {
@@ -142,6 +139,7 @@ export const Items = ({ prop ,setLoading}) => {
           </a>
         </td>
       </tr>
+      <ToastContainer/>
     </>
   );
 };

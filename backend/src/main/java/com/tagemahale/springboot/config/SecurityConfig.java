@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .cors()
-                .and()
+                .and() 
             .csrf().disable()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -64,11 +64,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
             .authorizeRequests()
+            .antMatchers("/", "/index.html", "/static/**", "/js/**", "/css/**", "/images/**", "/favicon.ico").permitAll() 
                 .antMatchers(HttpMethod.POST, "/**/entite/save").hasRole("CLIENT")
                 // .antMatchers(HttpMethod.GET, "/auth/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/**/entite/delete/*").hasRole("ADMIN")
                 .antMatchers("/auth/verify").permitAll()
-                .antMatchers("/auth/**", "/oauth2/**").permitAll()
+                .antMatchers("/auth/**","/product/all","/product/{id}" ,"/cart/allCarts").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling().accessDeniedPage("/login");
