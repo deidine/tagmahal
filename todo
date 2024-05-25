@@ -1,0 +1,26 @@
+1)chaque article a une reference et un nom comme par exple le 2 lettre premiere du chaque produit
+
+inserer les articles
+
+exple sumsung phone: sum123
+
+2) etat du stock :
+
+
+article : reference : stock initial : entrer : sorite :stock final : prix d'achat : prix d'achat unite
+______________________________________________________________________________________________________
+article1: TL1/22    :50             :20      : 10      :50+20-10=60 :...
+
+
+3)journal de sorite
+
+Date : reference : stock valable : sorite : description  : prix de vente : prix d'achat
+______________________________________________________________________________________________________
+3/2/24: TL1/22   :50            :5          :..           :..             :...
+
+
+note : stock initial c'est le quentite qui se trouve dans la magasin 
+
+envoier what ou print facture 
+
+make this in ui only and use only one table is product

@@ -25,7 +25,5 @@ public class Order {
     private Date date;
     private String paymentStatus;
     private String orderStatus;
-    private float quantity;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderProductDetail> productDetails;
+    private float quantity; 
 }

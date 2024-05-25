@@ -18,6 +18,8 @@ const UpdateProduct = () => {
   const [productName, setProductName] = useState("");
   const [weight, setWeight] = useState(0);
   const [token, setToken] = useState(sessionStorage.getItem("token"));
+  const [purchasePriceUnit, setPurchasePriceUnit] = useState(0);
+  const [purchasePrice, setPurchasePrice] = useState(0);
 
   // GET Single Product
   const getSingleProduct = async () => {
@@ -30,9 +32,11 @@ const UpdateProduct = () => {
       setProductId(product.productid);
       setDescription(product.description);
       setImg(product.img);
-      setPrice(product.price);
+      setPrice(product.sellePrice);
       setProductName(product.productName);
-      setWeight(product.weight);
+      setWeight(product.quantite);
+      setPurchasePriceUnit(product.purchasePriceUnit)
+setPurchasePrice(product.purchasePrice)
     } catch (error) {
       console.log(error);
     }
@@ -49,15 +53,18 @@ const UpdateProduct = () => {
     try {
       const productData = new FormData();
       productData.append("description", description);
-      productData.append("price", price);
+      productData.append("sellePrice", price);
       productData.append("productname", productName);
-      productData.append("weight", weight);
+      productData.append("quantite", weight);
+      
+      productData.append("purchasePriceUnit", purchasePriceUnit);
+      productData.append("purchasePrice", purchasePrice);
       if (img) {
         productData.append("img", img);
       }
 
       const { data } = await axios.put(
-        `http://localhost:8080/product/update/${productId}`,
+        `${BACK_END_URL}/product/update/${productId}`,
         productData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -77,26 +84,7 @@ const UpdateProduct = () => {
       setLoading(false);
     }
   };
-
-  // DELETE Product Deletion
-  const handleDeleteProduct = async () => {
-    try {
-      const answer = window.prompt("Are you sure you want to delete this product?");
-      if (answer) {
-        const { data } = await axios.delete(`http://localhost:8080/product/delete/${productId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (data.success) {
-          toast.success(data.msg);
-          navigate("/admin/products/");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something Went Wrong");
-    }
-  };
-
+ 
   return (
     <div className="container my-5">
       <div className="row">
@@ -145,8 +133,32 @@ const UpdateProduct = () => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="weight" className="form-label label fw-bold">
-                Weight:
+              <label htmlFor="purchasePrice" className="form-label fw-bold">
+                Product purchasePrice:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Product Price"
+                value={purchasePrice}
+                onChange={(e) => setPurchasePrice(e.target.value)}
+              />
+            </div> <div className="mb-3">
+              <label htmlFor="purchasePriceUnit" className="form-label fw-bold">
+                Product purchasePriceUnit:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Product Price"
+                value={purchasePriceUnit}
+                onChange={(e) => setPurchasePriceUnit(e.target.value)}
+              />
+            </div>
+           
+            <div className="mb-3">
+              <label htmlFor="quantite" className="form-label label fw-bold">
+              Quantite:
               </label>
               <input
                 type="number"
@@ -164,8 +176,9 @@ const UpdateProduct = () => {
                 <div className="col-md-2">
                   <div className="position-relative">
                     <Image width={100} height={100}
-                      src={`data:image/jpeg;base64,${img}`}
-                      alt="Product Image" />
+                            src={`${BACK_END_URL}/product/image/${img}`}
+
+                       alt="Product Image" />
                     <button
                       type="button"
                       className="btn btn-sm btn-danger position-absolute top-0 end-0"
@@ -184,9 +197,10 @@ const UpdateProduct = () => {
                       </div>
                     ) : (
                       <Image width={100} height={100} style={{ objectFit: "cover" }}
-                      src={`data:image/jpeg;base64,${img}`}
-                        // src={`http://localhost:8080/product/photo/${productId}`} // Assuming a fallback URL if no image is uploaded
-                        alt="Default Product Image"
+                       
+                       src={`${BACK_END_URL}/product/image/${img}`}
+                       
+                         alt="Default Product Image"
                       />
                     )}
                   </div>
@@ -214,9 +228,7 @@ const UpdateProduct = () => {
               <button className="btn btn-primary" onClick={handleUpdateProduct} disabled={loading}>
                 {loading ? "Updating..." : "Update Product"}
               </button>
-              <button className="btn btn-danger" onClick={handleDeleteProduct} disabled={loading}>
-                {loading ? "Deleting..." : "Delete Product"}
-              </button>
+            
             </div>
           </div>
         </div>

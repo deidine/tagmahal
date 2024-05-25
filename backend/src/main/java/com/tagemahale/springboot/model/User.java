@@ -9,14 +9,18 @@ import lombok.Setter;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email; 
+import javax.validation.constraints.Email;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction; 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
+        @UniqueConstraint(columnNames = "email" ),
+        @UniqueConstraint(columnNames =  "phone")
 })
 public class User {
  
@@ -30,8 +34,9 @@ public class User {
     @Email
     @Column(nullable = false)
     private String email;
-
-    private String imageUrl;
+    @Column(nullable = false )
+    private String phone;
+ 
 
     @Column(nullable = false)
     private Boolean emailVerified = false;
@@ -47,11 +52,9 @@ public class User {
      
     List<AppUserRole> appUserRoles;
    
- 
-    private String secret;
   
-    private String providerId;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+       @OnDelete(action = OnDeleteAction.CASCADE)
     private Cart cart;
  
 

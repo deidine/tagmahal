@@ -14,8 +14,10 @@ public class CartDetailDto {
 
     private int CartDetalisId;
     private ProductDto products;
+    // private ProductDto productsImgs;
     private int Quantity;
     private int Amount;
 
 //    private CartDto cart;
 }
+ 

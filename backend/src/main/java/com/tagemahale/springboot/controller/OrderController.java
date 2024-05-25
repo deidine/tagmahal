@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.tagemahale.springboot.model.Order;
-import com.tagemahale.springboot.model.OrderProductDetail;
-import com.tagemahale.springboot.model.Product;
 import com.tagemahale.springboot.model.User;
 import com.tagemahale.springboot.payload.OrderDto;
-import com.tagemahale.springboot.repository.OrderProductDetailRepo;
 import com.tagemahale.springboot.repository.OrderRepository;
+import com.tagemahale.springboot.service.CartService;
 
 import java.util.Date;
 import java.util.List;
@@ -20,10 +18,10 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     @Autowired
-    private OrderRepository orderRepository;
+    private CartService cartService;
 
     @Autowired
-    private OrderProductDetailRepo prodDetailRepository;
+    private OrderRepository orderRepository;
 
     @GetMapping
     public ResponseEntity<List<OrderDto>> getAllOrders() {
@@ -45,17 +43,15 @@ public class OrderController {
         User user = new User();
         user.setId(orderDto.getUserId());
         savedOrder.setBuyer(user);
-
         orderRepository.save(savedOrder);
 
-        Product product = new Product();
-        product.setProductId(orderDto.getProductIds());
-        OrderProductDetail det = new OrderProductDetail();
-        det.setProduct(product);
-        det.setOrder(savedOrder);
-        prodDetailRepository.save(det);
-
         return ResponseEntity.ok(savedOrder);
+
+    }
+
+    @DeleteMapping("/{email}")
+  public  void deleteCardByCreateOrder(@PathVariable("email") String email) {
+        this.cartService.RemoveByCart(email);
     }
 
     @GetMapping("/{id}")
@@ -67,9 +63,6 @@ public class OrderController {
     }
 
     private OrderDto mapOrderToDTO(Order order) {
-        List<String> productNames = order.getProductDetails().stream()
-                .map(productDetail -> productDetail.getProduct().getProductName())
-                .collect(Collectors.toList());
 
         Integer userId = null;
         if (order.getBuyer() != null) {
@@ -79,13 +72,10 @@ public class OrderController {
         OrderDto orderDto = new OrderDto(
                 order.getId(),
                 order.getDate(),
-                productNames,
                 userId,
                 order.getQuantity(),
                 order.getPaymentStatus(),
-                order.getOrderStatus(),
-                order.getProductDetails().isEmpty() ? null : order.getProductDetails().get(0).getProduct().getProductId()
-        );
+                order.getOrderStatus());
 
         return orderDto;
     }

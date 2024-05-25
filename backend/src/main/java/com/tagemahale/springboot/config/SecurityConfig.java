@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // .antMatchers(HttpMethod.GET, "/auth/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/**/entite/delete/*").hasRole("ADMIN")
                 .antMatchers("/auth/verify").permitAll()
-                .antMatchers("/auth/**","/product/all","/product/{id}" ,"/cart/allCarts").permitAll()
+                .antMatchers("/auth/**","/product/all","/product/image/**","/product/{id}" ,"/cart/allCarts").permitAll()
                 .anyRequest().authenticated();
 
         http.exceptionHandling().accessDeniedPage("/login");

@@ -11,7 +11,9 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [weight, setWeight] = useState(0);
+  const [purchasePriceUnit, setPurchasePriceUnit] = useState(0);
+  const [purchasePrice, setPurchasePrice] = useState(0);
+  const [quantite, setWeight] = useState(0);
   const[token,setToken]=useState(sessionStorage.getItem("token"));
 
   const handleRemoveImage = () => {
@@ -27,8 +29,10 @@ const CreateProduct = () => {
       const productData = new FormData();
       productData.append("productname", name);
       productData.append("description", description);
-      productData.append("price", price);
-      productData.append("weight", weight);
+      productData.append("purchasePriceUnit", purchasePriceUnit);
+      productData.append("purchasePrice", purchasePrice);
+      productData.append("sellePrice", price);
+      productData.append("quantite", quantite);
       productData.append("img", thumbnail); 
       
       const { data } = await axios.post(
@@ -148,14 +152,37 @@ const CreateProduct = () => {
               />
             </div>
             <div className="mb-3">
+              <label htmlFor="purchasePrice" className="form-label fw-bold">
+                Product purchasePrice:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Product Price"
+                value={purchasePrice}
+                onChange={(e) => setPurchasePrice(parseFloat(e.target.value))}
+              />
+            </div> <div className="mb-3">
+              <label htmlFor="purchasePriceUnit" className="form-label fw-bold">
+                Product purchasePriceUnit:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Enter Product Price"
+                value={purchasePriceUnit}
+                onChange={(e) => setPurchasePriceUnit(parseFloat(e.target.value))}
+              />
+            </div>
+            <div className="mb-3">
               <label htmlFor="productWeight" className="form-label fw-bold">
-                Product Weight (grams):
+                Product quantite:
               </label>
               <input
                 type="number"
                 className="form-control"
                 placeholder="Enter Product Weight"
-                value={weight}
+                value={quantite}
                 onChange={(e) => setWeight(parseFloat(e.target.value))}
               />
             </div>

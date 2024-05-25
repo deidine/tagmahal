@@ -1,3 +1,4 @@
+import { Image } from "antd";
 import React, { useEffect, useState } from 'react'
 import { Header } from '../Component/Header'
 import { Footer } from '../Component/Footer'
@@ -90,8 +91,13 @@ console.log(quantity);
       </div> */}
       <div className="row">
         <div className="col-md-6 d-flex justify-content-center">
-              {!data.img?<></>:<img className='productimg'  width="167" 
-     height="250" src={`data:image/png;base64,${data.img}`} alt="Product Image"/>}
+           
+     
+     <Image
+                            //  width={167} height={250}
+                             src={`${BACK_END_URL}/product/image/${data.img}`}
+
+                       alt="Product Image" />
                  </div>
         <div className="col-md-6">
           <div className="product-dtl">
@@ -141,8 +147,8 @@ console.log(quantity);
                 <span>3 Reviews</span>
               </div>
               <div className="product-price-discount">
-                <span>Rs {data.price}</span>
-                <span className="line-through">Rs {data.price+100}</span>
+                <span>Rs {data.sellePrice}</span>
+                <span className="line-through">Rs {data.sellePrice+100}</span>
               </div>
             </div>
             <p>

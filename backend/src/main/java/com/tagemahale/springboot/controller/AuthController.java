@@ -15,14 +15,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.tagemahale.springboot.exception.BadRequestException;
 import com.tagemahale.springboot.exception.UserNotVerifiedException;
 import com.tagemahale.springboot.model.ConfirmationToken;
-import com.tagemahale.springboot.model.Product;
 import com.tagemahale.springboot.model.User;
 import com.tagemahale.springboot.payload.ApiResponse;
 import com.tagemahale.springboot.payload.AuthResponse;
 import com.tagemahale.springboot.payload.LoginRequest;
-import com.tagemahale.springboot.payload.ProductDto;
 import com.tagemahale.springboot.payload.SignUpRequest;
-import com.tagemahale.springboot.payload.SignUpResponse;
 import com.tagemahale.springboot.payload.TotpRequest;
 import com.tagemahale.springboot.payload.UserDto;
 import com.tagemahale.springboot.payload.VerifyEmailRequest;
@@ -35,8 +32,7 @@ import com.tagemahale.springboot.service.EmailSenderService;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Calendar;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.List; 
 import java.util.stream.Stream;
 
 import lombok.extern.slf4j.Slf4j;
@@ -174,7 +170,7 @@ System.out.println(user2.getId()+"seses");
     
         List<User> users = userRepository.findAll();
         Stream<Object> collect = users.stream()
-                .map(user -> new UserDto( user.getId(),user.getName(),user.getEmail(),user.getPassword())
+                .map(user -> new UserDto( user.getId(),user.getName(),user.getEmail() )
                );
     
         return new ResponseEntity<>(collect,HttpStatus.valueOf(200));

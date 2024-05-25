@@ -43,10 +43,18 @@ const Users = () => {
                   <th scope="col" style={{ width: "15%" }}>
                     Name
                   </th>
+
+                  
                   <th scope="col" style={{ width: "15%" }}>
                     Email
-                  </th>
-                  {/* Add more headers as needed */}
+                  </th> 
+                  <th scope="col" style={{ width: "15%" }}>
+                    changer rolle
+                  </th> 
+                  
+                  <th scope="col" style={{ width: "15%" }}>
+                    Action
+                  </th> 
                 </tr>
               </thead>
               <tbody>
@@ -73,7 +81,9 @@ const Users = () => {
                     >
                       {user.email}
                     </td>
-                    {/* Add more columns as needed */}
+                   
+                   <td>vendeir manager</td>
+                   <td>delete</td>
                   </tr>
                 ))}
               </tbody>

@@ -22,5 +22,5 @@ public interface CartService {
 
     //delete
     List<CartDto> getAllCarts();
-
+    void RemoveByCart( String email);
 }

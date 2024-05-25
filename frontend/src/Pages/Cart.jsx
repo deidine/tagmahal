@@ -19,7 +19,7 @@ export const Cart = () => {
         // get cart item
         console.log(token);
         try {  
-          const res = await fetch(BACK_END_URL+"/cart/1", {headers: {
+          const res = await fetch(BACK_END_URL+"/cart/"+sessionStorage.getItem("user_id"), {headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer "+token
           },

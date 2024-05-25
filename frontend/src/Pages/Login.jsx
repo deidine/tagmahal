@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { Footer } from '../Component/Footer'
-import { Header } from '../Component/Header'
+import { Footer } from '../Component/Footer';
+import { Header } from '../Component/Header';
 import { toast } from 'react-toastify';
-import {BACK_END_URL} from '../constant'
+import {BACK_END_URL} from '../constant';
+import { Form, Input, Button, Card, Typography } from 'antd';
+
+const { Title, Link } = Typography;
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -40,7 +43,7 @@ export const Login = () => {
   });
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const res = await fetch(BACK_END_URL+"/auth/login", {
       method: "POST",
       headers: {
@@ -68,48 +71,64 @@ export const Login = () => {
     <>
       <Header />
       <div className="d-flex flex-column justify-content-center align-items-center" id="login-box">
-        <div className="card" style={{ width: '30rem', padding: '20px', marginTop: '20px' }}>
-          <div className="card-body">
-            <h4 className="card-title text-center">Connexion</h4>
-            <form onSubmit={handleLogin}>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Email"
-                  name="email"
-                  onChange={(e) => setUser({ ...user, email: e.target.value })}
-                  value={user.email}
-                  required
-                  minLength={6}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">Mot de passe</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  placeholder="Mot de passe"
-                  name="password"
-                  onChange={(e) => setUser({ ...user, password: e.target.value })}
-                  value={user.password}
-                  required
-                  minLength={6}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary w-100">Connexion</button>
-            </form>
-            <div className="d-flex justify-content-between mt-3">
-              <a href="#" className="small">Mot de passe oublié ?</a>
-              <a href="/singup" className="small">Créer un compte</a>
-            </div>
+        <Card style={{ width: 'auto', padding: '20px', marginTop: '20px' }}>
+          <Title level={4} className="text-center">Connexion</Title>
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={handleLogin}
+          >
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: 'Veuillez entrer votre email!' },
+                { type: 'email', message: 'Veuillez entrer un email valide!' },
+              ]}
+            >
+              <Input
+                placeholder="Email"
+                style={{
+                  fontSize:"20px",
+fontFamily:"monospace",
+                  width:"300px",
+                  height:"40px"
+
+                }}
+                type='email'
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                value={user.email}
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: 'Veuillez entrer votre mot de passe!' },
+                { min: 6, message: 'Le mot de passe doit contenir au moins 6 caractères!' },
+              ]}
+            >
+              <Input.Password
+              style={{
+                  fontSize:"16px",
+                  width:"300px",
+                  height:"40px"
+                }}
+                placeholder="Mot de passe"
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
+                value={user.password}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="w-100">
+                Connexion
+              </Button>
+            </Form.Item>
+          </Form>
+          <div className="d-flex justify-content-between mt-3">
+            <Link href="#" className="strong">Mot de passe oublié ?</Link>
+            <Link href="/singup" className="strong">Créer un compte</Link>
           </div>
-        </div>
+        </Card>
       </div>
- 
     </>
   );
-}
+};

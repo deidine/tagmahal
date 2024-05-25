@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto CreateProduct(ProductDto productDto) {
         Product product=this.modelMapper.map(productDto,Product.class);
-        product.setImg(compressBytes(product.getImg()));
+        product.setImg(product.getImg());
 
         Product save = this.productRepo.save(product);
         save.setImg(null);
@@ -46,10 +46,12 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setProductId(ProductId);
         newProduct.setDescription(productDto.getDescription());
         newProduct.setProductName(productDto.getProductName());
-        newProduct.setWeight(Float.valueOf(productDto.getWeight()));
-        newProduct.setPrice(Float.valueOf(productDto.getPrice()));
+        newProduct.setQuantite(Float.valueOf(productDto.getQuantite()));
+        newProduct.setSellePrice(Float.valueOf(productDto.getSellePrice()));
+        newProduct.setPurchasePrice(Float.valueOf(productDto.getPurchasePrice()));
+        newProduct.setPurchasePriceUnit(Float.valueOf(productDto.getPurchasePriceUnit()));
         if (productDto.getImg() != null ) {
-            newProduct.setImg(compressBytes(productDto.getImg()));
+            newProduct.setImg(productDto.getImg());
         }
         productRepo.save(newProduct);
         newProduct.setImg(null);
@@ -63,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto ReadProduct(Integer ProductId) {
 
         Product save = this.productRepo.findById(ProductId).orElseThrow();
-        save.setImg(decompressBytes(save.getImg()));
+        save.setImg(save.getImg());
 
 
         return this.modelMapper.map(save,ProductDto.class);
@@ -76,7 +78,11 @@ public class ProductServiceImpl implements ProductService {
         List<Product> all = this.productRepo.findAll();
 
 
-        List<ProductDto> collect = all.stream().map(dto -> new ProductDto(dto.getProductId(), dto.getProductName(), dto.getDescription(), dto.getPrice(), dto.getWeight(), decompressBytes(dto.getImg()))).collect(Collectors.toList());
+        List<ProductDto> collect = all.stream().map(dto -> 
+        new ProductDto(dto.getProductId(), dto.getProductName(),
+         dto.getDescription(), dto.getSellePrice(),dto.getPurchasePrice(),dto.getPurchasePriceUnit(), dto.getQuantite(), dto.getImg()
+        
+         )).collect(Collectors.toList());
 
         return collect;
     }

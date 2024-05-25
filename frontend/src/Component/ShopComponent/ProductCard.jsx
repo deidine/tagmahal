@@ -1,101 +1,84 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { Card, Button, Image, Tooltip, Rate, message } from 'antd';
+import { HeartOutlined, EyeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { BACK_END_URL } from "../../constant";
 
 export const ProductCard = (props) => {
   const navigate = useNavigate();
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
 
-  const[token,setToken]=useState(sessionStorage.getItem("token"));
+  const onAddToCartSuccess = () => {
+    message.success('Added to cart!', 5);
+  };
 
-  const onToast = () => {
-    toast.success('Added to cart!', {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-  }
-  const handalClick = (id) => {
+  const handleProductClick = (id) => {
     navigate(`/product/${id}`);
   };
 
-  const handalCart = async () => {
-    if(sessionStorage.getItem("token")===null){
+  const handleAddToCart = async () => {
+    if (!token) {
       navigate("/login");
+      return;
     }
-    const res = await fetch("http://localhost:8080/cart/addproduct", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + token
-      },
-      body: JSON.stringify({
-
-        productId: props.id,
-        quantity: 1,
-      }),
-    });
-    if(res.status===200){
-      onToast();
-      const data = await res.json();
-    }else{
-      navigate("/login");
+    try {
+      const res = await fetch(`${BACK_END_URL}/cart/addproduct`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          productId: props.id,
+          quantity: 1,
+        }),
+      });
+      if (res.ok) {
+        onAddToCartSuccess();
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      message.error('Something went wrong!');
     }
-    
   };
-  return (
-    <>
-      <li>
-        <div className="product-card">
-          <figure className="card-banner">
-            <img
-              src={`data:image/png;base64,${props.img}`}
-              width={189}
-              height={189}
-              loading="lazy"
-              alt="Fresh Orangey"
-            />
-            <div className="btn-wrapper">
-              <button className="product-btn" aria-label="Add to Whishlist">
-                <ion-icon name="heart-outline" />
-                <div className="tooltip">Add to Whishlist</div>
-              </button>
-              <button
-                className="product-btn"
-                onClick={() => handalClick(props.id)}
-                aria-label="Quick View"
-              >
-                <ion-icon name="eye-outline" />
-                <div className="tooltip">Voir Rapidement</div>
-              </button>
-            </div>
-          </figure>
-          <div className="rating-wrapper">
-            <ion-icon name="star" />
-            <ion-icon name="star" />
-            <ion-icon name="star" />
-            <ion-icon name="star" />
-            <ion-icon name="star" />
-          </div>
-          <h3 className="h4 card-title">
-            <a href={`/product/${props.id}`}>{props.name}</a>
-          </h3>
-          <div className="price-wrapper">
-            <del className="del">Rs {props.price+100}</del>
-            <data className="price" value={85.0}>
-              Rs {props.price}
-            </data>
-          </div>
-          <button className="btn btn-primary" onClick={() => handalCart()}>
-            Ajouter a  Cart
-          </button>
-        </div>
-      </li>
 
-    </>
+  return (
+    <Card
+      hoverable
+      cover={
+        <Image
+          alt={props.name}
+          src={`${BACK_END_URL}/product/image/${props.img}`}
+          style={{ height: 189, objectFit: 'cover' }}
+        />
+      }
+      actions={[
+        <Tooltip title="Add to Wishlist" key="wishlist">
+          <Button type="link" icon={<HeartOutlined />} />
+        </Tooltip>,
+        <Tooltip title="Quick View" key="quick-view">
+          <Button type="link" icon={<EyeOutlined />} onClick={() => handleProductClick(props.id)} />
+        </Tooltip>
+      ]}
+    >
+      <div style={{ textAlign: 'center' }}
+      onClick={() => handleProductClick(props.id)}
+      
+      >
+        <Rate disabled defaultValue={5} style={{ marginBottom: '10px' }} />
+        <h3 style={{ fontSize: '1.2em', margin: '10px 0' }}>
+          <a href={`/product/${props.id}`}>{props.name}</a>
+        </h3>
+        <div style={{ marginBottom: '10px' }}>
+          <del style={{ marginRight: '10px' }}>Rs {props.price + 100}</del>
+          <span style={{ fontSize: '1.2em', color: '#ff4d4f' }}>Rs {props.price}</span>
+        </div>
+        <Button type="primary" icon={<ShoppingCartOutlined />} onClick={handleAddToCart}>
+          Ajouter au Panier
+        </Button>
+      </div>
+    </Card>
   );
 };
+ 

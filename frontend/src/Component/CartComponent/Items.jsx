@@ -65,7 +65,7 @@ export const Items = ({ prop ,setLoading}) => {
   const handleRemove = async () =>{
     //call delete api without body
     const res = await  fetch(
-      `http://localhost:8080/cart/product/${prop.products.productid}`,
+      `${BACK_END_URL}/cart/product/${prop.products.productid}`,
       {
         method: "DELETE",
         headers: {
@@ -88,7 +88,8 @@ export const Items = ({ prop ,setLoading}) => {
         <th scope="row" className="border-0">
           <div className="p-2">
             <img
-              src={`data:image/png;base64,${item2.img}`}
+                            src={`${BACK_END_URL}/product/image/${item2.img}`}
+ 
               alt=""
               width={70}
               className="img-fluid rounded shadow-sm d-inline "
@@ -107,7 +108,7 @@ export const Items = ({ prop ,setLoading}) => {
           </div>
         </th>
         <td className="border-0 align-middle">
-          <strong>{item2.price}</strong>
+          <strong>{item2.sellePrice}</strong>
         </td>
         <td className="border-0 align-middle">
           <div className="qty2 display-flex">

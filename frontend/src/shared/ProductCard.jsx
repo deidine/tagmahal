@@ -7,7 +7,7 @@ const ProductCard = ({
   description,
   img,
   price,
-  weight,
+  quantite,
 }) => {
   return (
     <div className="card h-100 shadow-sm">
@@ -23,7 +23,7 @@ const ProductCard = ({
         <p className="card-text">{description}</p>
         <div className="mt-auto">
           <div className="mb-2">
-            <span className="fw-bold">Weight:</span> {weight} kg
+            <span className="fw-bold">Weight:</span> {quantite} kg
           </div>
           <p className="fw-bold d-flex align-items-center">
             <span>&#x24;</span>

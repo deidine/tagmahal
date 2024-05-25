@@ -70,7 +70,7 @@ export const ListProduct = () => {
                   id={item.productid}
                   name={item.productName}
                   description={item.description}
-                  price={item.price}
+                  price={item.sellePrice}
                   img={item.img}
                 />
               ))

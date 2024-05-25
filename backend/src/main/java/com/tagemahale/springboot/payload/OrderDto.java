@@ -18,12 +18,12 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderDto {
     private Long orderId;
-    private Date orderDate;
-    private List<String> products;
+    private Date orderDate; 
     private Integer  userId;
     private float Quantity;
     private String paymentStatus;
-    private String orderStatus;
-    private Integer productIds;
+    private String orderStatus; 
+   
+    
 
 }

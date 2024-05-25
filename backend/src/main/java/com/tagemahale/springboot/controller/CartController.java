@@ -25,7 +25,11 @@ public class CartController {
     @PostMapping("/addproduct")
     public ResponseEntity<CartDto> addProduct(@RequestBody CartHelp cartHelp,Principal principal){
         String userEmail = principal.getName();
+        System.out.println(userEmail+"deideineee");
+        System.out.println(userEmail+"deideineee");
+        
         cartHelp.setUserEmail(userEmail);
+        System.out.println(cartHelp.toString()+"deideineee");
         CartDto cartDto = this.cartService.addProductToCart(cartHelp);
         return new ResponseEntity<>(cartDto, HttpStatus.valueOf(200));
     }

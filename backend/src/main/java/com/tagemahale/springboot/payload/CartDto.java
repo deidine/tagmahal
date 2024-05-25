@@ -15,10 +15,7 @@ import com.tagemahale.springboot.payload.UserDto;
 @AllArgsConstructor
 public class CartDto {
     private int Id;
-
     private UserDto user;
-
     private float TotalAmount;
-
     private List<CartDetailDto> cartDetalis;
 }

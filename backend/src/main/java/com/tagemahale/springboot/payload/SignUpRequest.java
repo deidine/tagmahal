@@ -3,9 +3,7 @@ package com.tagemahale.springboot.payload;
 import java.util.List;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.NotBlank; 
 import com.tagemahale.springboot.model.AppUserRole;
 
 public class SignUpRequest {
@@ -17,11 +15,13 @@ public class SignUpRequest {
     private String email;
 
     @NotBlank
+     
+    private String phone;
+
+    @NotBlank
     private String password;
     List<AppUserRole> appUserRoles;
-    @NotNull
-    private boolean using2FA;
-
+ 
     public List<AppUserRole> getAppUserRoles() {
         return appUserRoles;
     }
@@ -41,6 +41,13 @@ public class SignUpRequest {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getPassword() {
         return password;
@@ -50,11 +57,5 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public Boolean getUsing2FA() {
-        return using2FA;
-    }
-
-    public void setUsing2FA(Boolean using2FA) {
-        this.using2FA = using2FA;
-    }
+  
 }

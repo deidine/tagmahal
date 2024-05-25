@@ -44,7 +44,7 @@ public class AuthService {
               Cart cart= new Cart();
         cart.setUser(user);
         user.setCart(cart);
-
+user.setPhone(signUpRequest.getPhone());
         user.setAppUserRoles(signUpRequest.getAppUserRoles());
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());

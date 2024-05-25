@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as Scroll from 'react-scroll';
-
+import * as Scroll from "react-scroll";
 let Link = Scroll.Link;
-
 export const Header = () => {
   const [islogin, setislogin] = useState(sessionStorage.getItem("token"));
   const navigate = useNavigate();
@@ -105,10 +103,10 @@ export const Header = () => {
                   Contact
                 </Link>
               </li>
-              <a href="/admin" className="navbar-link" >
-             <ion-icon name="chevron-forward" aria-hidden="true" /> <span className="span">Espace Admin</span>
-              
-            </a>
+              <a href="/admin" className="navbar-link">
+                <ion-icon name="chevron-forward" aria-hidden="true" />{" "}
+                <span className="span">Espace Admin</span>
+              </a>
             </ul>
           </nav>
           <div className="header-action">
@@ -127,7 +125,10 @@ export const Header = () => {
                   placeholder="Rechercher ici"
                   className="search-input"
                 />
-                <button className="search-submit" aria-label="Soumettre la recherche">
+                <button
+                  className="search-submit"
+                  aria-label="Soumettre la recherche"
+                >
                   <ion-icon name="search-outline" />
                 </button>
               </div>
